@@ -8,7 +8,7 @@ import {
 	Typography,
 } from "@mui/material";
 import api from "../api/axiosInstance";
-import { log } from "../../../Logging Middleware";
+
 import {
 	isValidShortcode,
 	isValidUrl,
@@ -40,24 +40,17 @@ const ShortenForm = ({ onResults }) => {
 
 			if (!isValidUrl(url)) {
 				alert("Invalid URL");
-				await log("frontend", "error", "component", "Invalid URL format.");
 				continue;
 			}
 
 			if (shortcode && !isValidShortcode(shortcode)) {
 				alert("Invalid shortcode");
-				await log(
-					"frontend",
-					"error",
-					"component",
-					"Invalid shortcode format."
-				);
+
 				continue;
 			}
 
 			if (!isValidValidity(validity)) {
 				alert("Invalid validity");
-				await log("frontend", "error", "component", "Invalid validity.");
 				continue;
 			}
 
@@ -68,25 +61,12 @@ const ShortenForm = ({ onResults }) => {
 					shortcode: shortcode || undefined,
 				});
 
-				await log(
-					"frontend",
-					"info",
-					"component",
-					`Shortened URL created for ${url}`
-				);
-
 				results.push({
 					...input,
 					shortLink: response.data.shortLink,
 					expiry: response.data.expiry,
 				});
 			} catch (err) {
-				await log(
-					"frontend",
-					"error",
-					"component",
-					`Shorten failed: ${err.message}`
-				);
 				alert("Shorten failed for URL: " + url);
 			}
 		}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Container, Typography, Card, CardContent } from "@mui/material";
-import { log } from "../../../Logging Middleware";
 import api from "../api/axiosInstance";
 
 const Statistics = () => {
@@ -9,7 +8,6 @@ const Statistics = () => {
 	useEffect(() => {
 		const fetchStats = async () => {
 			try {
-				// If persistence not implemented, mock values:
 				const shortcodes = JSON.parse(
 					localStorage.getItem("shortcodes") || "[]"
 				);
